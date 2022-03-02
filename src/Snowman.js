@@ -43,6 +43,7 @@ function Snowman({
         .map(ltr => (guessedLetters.has(ltr) ? ltr : "_"));
   }
 
+
   /** handleGuess: handle a guessed letter:
    - add to guessed letters
    - if not in answer, increase number-wrong guesses
@@ -50,8 +51,8 @@ function Snowman({
   function handleGuess(evt) {
     let ltr = evt.target.value;
 
-    setGuessedLetters(g => {
-      const newGuessed = new Set(g);
+    setGuessedLetters(previouslyGuessed => {
+      const newGuessed = new Set(previouslyGuessed);
       newGuessed.add(ltr);
       return newGuessed;
     });
@@ -75,9 +76,12 @@ function Snowman({
 
   return (
       <div className="Snowman">
+        <div className="Snowman-wrong-guesses">
+          Number of incorrect guesses: { nWrong }
+        </div>
         <img src={(images)[nWrong]} alt={nWrong} />
         <p className="Snowman-word">{guessedWord()}</p>
-        <p>{generateButtons()}</p>
+        <p className="Snowman-letter-buttons">{generateButtons()}</p>
       </div>
   );
 }
